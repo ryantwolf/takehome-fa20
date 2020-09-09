@@ -76,6 +76,15 @@ def get_restaurant_by_id(id):
     return create_response(status=404, message="No restaurant with this id exists")
   return create_response(restaurant)
 
+#Part 4
+@app.route("/restaurants", methods=['POST'])
+def create_restaurant():
+  if "name" not in request.json:
+    return create_response(status=422, message="Supply a name for the restaurant")
+  if "rating" not in request.json:
+    return create_response(status=422, message="Supply a rating for the restaurant")
+  new_restaurant = db.create("restaurants", request.json)
+  return create_response(new_restaurant, status=201)
 """
 ~~~~~~~~~~~~ END API ~~~~~~~~~~~~
 """
