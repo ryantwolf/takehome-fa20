@@ -85,6 +85,15 @@ def create_restaurant():
     return create_response(status=422, message="Supply a rating for the restaurant")
   new_restaurant = db.create("restaurants", request.json)
   return create_response(new_restaurant, status=201)
+
+#Part 5
+@app.route("/restaurant/<id>", methods=['PUT'])
+def update_restaurant(id):
+  updated_restaurant = db.updateById('restaurants', int(id), request.json)
+  print(updated_restaurant)
+  if updated_restaurant is None:
+    return create_response(status=404, message="No restaurant with this id exists")
+  return create_response(updated_restaurant)
 """
 ~~~~~~~~~~~~ END API ~~~~~~~~~~~~
 """
